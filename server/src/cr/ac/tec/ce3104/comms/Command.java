@@ -5,6 +5,7 @@ import cr.ac.tec.ce3104.physics.Size;
 import cr.ac.tec.ce3104.physics.Speed;
 import cr.ac.tec.ce3104.physics.Position;
 
+import cr.ac.tec.ce3104.resources.Sprite;
 import org.json.simple.JSONValue;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -83,9 +84,9 @@ public class Command {
      */
     public static Command cmdPut(Integer id, Position position, Integer z, Speed speed, Sequence sequence) {
         List<Integer> sequenceIds = new ArrayList<>();
-        /*for (Sprite sprite : sequence.getSprites()) {
+        for (Sprite sprite : sequence.getSprites()) {
             sequenceIds.add(sprite.getId());
-        }*/
+        }
 
         return new Command().putString("op", "put")
                 .putInt("id", id)

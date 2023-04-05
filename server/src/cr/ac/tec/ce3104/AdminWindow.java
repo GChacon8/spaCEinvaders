@@ -110,7 +110,19 @@ public class AdminWindow {
                 }
                 case "clear" -> this.consoleOutput.setText("");
                 case "list-games" -> {
-                    System.out.println("No games are running");
+                    Boolean atLeastOne = false;
+                    for (Integer id : Server.getInstance().getGameIds()) {
+                        atLeastOne = true;
+
+                        Game game = Server.getInstance().getGame(id);
+                        System.out.println("Game " + id + " started by client " + game.getPlayerId());
+                    }
+
+                    if (!atLeastOne) {
+                        System.out.println("No games are running");
+                    }
+
+                    break;
                 }
                 default -> System.err.println("Error: unknown command '" + command[0] + "'. Type 'help' for more information.");
             }

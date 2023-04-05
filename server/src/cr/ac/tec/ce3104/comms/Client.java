@@ -138,17 +138,17 @@ public class Client implements AutoCloseable {
         switch (operation) {
             case "press" -> {
                 this.lastKey = Key.parse(request.expectString("key"));
-                //this.game.onPress(this.lastKey);
+                this.game.onPress(this.lastKey);
             }
             case "release" -> {
                 if (this.lastKey == Key.parse(request.expectString("key"))) {
-                    //this.game.onRelease();
+                    this.game.onRelease();
                     this.lastKey = null;
                 }
             }
             case "move" -> {
                 Position position = new Position(request.expectInt("x"), request.expectInt("y"));
-                //this.game.onMove(request.expectInt("id"), position);
+                this.game.onMove(request.expectInt("id"), position);
             }
             default -> {
                 this.sendError("invalid operation: " + operation);

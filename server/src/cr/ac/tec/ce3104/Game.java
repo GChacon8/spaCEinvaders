@@ -8,6 +8,8 @@ import cr.ac.tec.ce3104.gameobjects.GameObjectObserver;
 import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
 import cr.ac.tec.ce3104.levels.Level;
 import cr.ac.tec.ce3104.levels.Level1;
+import cr.ac.tec.ce3104.modes.ControllableMode;
+import cr.ac.tec.ce3104.physics.Position;
 
 import java.util.HashMap;
 
@@ -87,6 +89,65 @@ public class Game implements GameObjectObserver {
     }
 
     /**
+     * Indicates how a key press should be administered
+     * @param key key pressed
+     */
+    public void onPress(Key key) {
+        // Keys are ignored during Dying (the client is unaware of this)
+        if (this.player.hasLost()) {
+            return;
+        }
+
+        ControllableMode mode = (ControllableMode)this.player.getMode();
+        switch (key) {
+            case LEFT -> mode.onMoveLeft(this.player);
+            case RIGHT -> mode.onMoveRight(this.player);
+            case SHOOT -> mode.onShoot(this.player);
+        }
+    }
+
+    /**
+     * Indicates what to do once a fabric has been released
+     */
+    public void onRelease() {
+        if (!this.player.hasLost()) {
+            ((ControllableMode)this.player.getMode()).onRelease(this.player);
+        }
+    }
+
+    /**
+     * Indicates the steps to carry out once a movement action by the player has been detected
+     * @param objectId entity identifier that was moved
+     * @param position position of the entity to manage
+     */
+    public synchronized void onMove(Integer objectId, Position position) {
+        GameObject object = this.gameObjects.get(objectId);
+        if (object == null) {
+            // The entity was probably recently deleted
+            return;
+        }
+
+        // Crash and collision cases are tried
+        //Placement placement = new Placement(object, position, this.level, this.gameObjects.values());
+
+        /*Orientation hitOrientation = placement.getHitOrientation();
+        if (hitOrientation != null) {
+            // Se contarresta el movimiento especulativo de los clientes
+            object.getMode().onHit(object, hitOrientation);
+        } else {
+            object.relocate(position);
+        }*/
+        object.relocate(position);
+
+        /*GameObject target = placement.getInteractionTarget();
+        if (target != null) {
+            // Interacción mutua entre dos entidades interactivas
+            object.onInteraction(target);
+            target.onInteraction(object);
+        }*/
+    }
+
+    /**
      * Restart current level
      */
     private synchronized void reset() {
@@ -125,14 +186,25 @@ public class Game implements GameObjectObserver {
         this.outputQueue.clear();
     }
 
+    // Called when deleting an entity
     @Override
-    public void onObjectDeleted(GameObject object) {
+    public synchronized void onObjectDeleted(GameObject object) {
+        this.outputQueue.add(object.makeDeleteCommand());
+        this.gameObjects.remove(object.getId());
 
+        this.commit();
     }
 
+    // Called when changing the mode of an entity
     @Override
-    public void onObjectModeChanged(GameObject object) {
+    public synchronized void onObjectModeChanged(GameObject object) {
+        if (object == this.player) {
+            // The player could have died or changed their stats
+            //this.updateStats();
+        }
 
+        this.outputQueue.add(object.makePutCommand());
+        this.commit();
     }
 
     /**
@@ -149,5 +221,33 @@ public class Game implements GameObjectObserver {
      */
     public Integer getPlayerId() {
         return this.playerId;
+    }
+
+    /**
+     * Adds an entity to the game scenario of the match
+     */
+    public synchronized <T extends GameObject> T spawn(T object) {
+        this.gameObjects.put(object.getId(), object);
+        this.onObjectModeChanged(object);
+
+        object.addObserver(this);
+
+        // Avoid spam during reset()
+        if (this.player != null) {
+            this.log("New object " + object);
+        }
+
+        return object;
+    }
+
+    /**
+     * Adds a list of entities to the game stage
+     * @param objects array of entities to add
+     */
+    public synchronized void spawn(GameObject[] objects) {
+        // It is not the same as doing it from outside, note that synchronized is preserved
+        for (GameObject object : objects) {
+            this.spawn(object);
+        }
     }
 }

@@ -1,8 +1,11 @@
 package cr.ac.tec.ce3104.levels;
 
 import cr.ac.tec.ce3104.Game;
+import cr.ac.tec.ce3104.gameobjects.Bunker;
 import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
+import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.physics.Size;
+import cr.ac.tec.ce3104.resources.Sprite;
 
 public class Level1 implements Level{
     /**
@@ -17,6 +20,14 @@ public class Level1 implements Level{
 
     @Override
     public PlayerAvatar setup(Game game, Integer initialScore) {
-        return null;
+        //Bunkers
+        game.spawn(new Bunker(new Position(48, 180)));
+        game.spawn(new Bunker(new Position(92, 180)));
+        game.spawn(new Bunker(new Position(138, 180)));
+        game.spawn(new Bunker(new Position(182, 180)));
+
+        // PLayer
+        Integer initialX = 220 - Sprite.SPACECRAFT.getSize().getHeight();
+        return game.spawn(new PlayerAvatar(new Position(123, initialX), initialScore, game));
     }
 }
