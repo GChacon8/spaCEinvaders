@@ -114,6 +114,10 @@ public abstract class GameObject {
         return false;
     }
 
+    /**
+     * Gets the drawing priority of the entity
+     * @return drawing priority
+     */
     protected Integer getZ() {
         return 0;
     }

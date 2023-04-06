@@ -2,11 +2,10 @@ package cr.ac.tec.ce3104.gameobjects;
 
 import cr.ac.tec.ce3104.Game;
 import cr.ac.tec.ce3104.modes.Mode;
-import cr.ac.tec.ce3104.modes.Moving;
-import cr.ac.tec.ce3104.modes.Standing;
+import cr.ac.tec.ce3104.modes.PlayerMoving;
+import cr.ac.tec.ce3104.modes.PlayerStanding;
 import cr.ac.tec.ce3104.physics.Dynamics;
 import cr.ac.tec.ce3104.physics.Position;
-import cr.ac.tec.ce3104.resources.Sprite;
 
 public class PlayerAvatar extends GameObject{
     private Integer score;
@@ -21,7 +20,7 @@ public class PlayerAvatar extends GameObject{
      * @param game game the player is in
      */
     public PlayerAvatar(Position position, Integer initialScore, Game game) {
-        super(Standing.initial(), position);
+        super(PlayerStanding.initial(), position);
         this.score = initialScore;
         this.game = game;
     }
@@ -45,7 +44,7 @@ public class PlayerAvatar extends GameObject{
      */
     @Override
     public void switchTo(Mode newMode) {
-        if (this.getMode() != newMode && newMode instanceof Moving) {
+        if (this.getMode() != newMode && newMode instanceof PlayerMoving) {
             //Placement placement = this.game.testCollisions(this, this.getPosition());
 
             /*GameObject target = placement.getInteractionTarget();

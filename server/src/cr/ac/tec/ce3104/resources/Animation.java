@@ -2,19 +2,19 @@ package cr.ac.tec.ce3104.resources;
 
 // A sequence of several looping sprites
 public class Animation extends Sequence{
+    // Sprite sequence
+    private Sprite[] sprites;
+
     // Enemy animations
-    public static final Animation SQUID_ENEMY   = new Animation(0, 1);
-    public static final Animation CRAB_ENEMY    = new Animation(2, 3);
-    public static final Animation OCTOPUS_ENEMY = new Animation(4, 5);
+    public static final Animation SQUID_ANIMATION   = new Animation(0, 1);
+    public static final Animation CRAB_ANIMATION    = new Animation(2, 3);
+    public static final Animation OCTOPUS_ANIMATION = new Animation(4, 5);
 
     // Gets the sprites
     @Override
     public Sprite[] getSprites() {
         return this.sprites;
     }
-
-    // Sprite sequence
-    private Sprite[] sprites;
 
     /**
      * Creates an animation instance from a list of sprite image ids

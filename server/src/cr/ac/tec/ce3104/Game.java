@@ -3,9 +3,7 @@ package cr.ac.tec.ce3104;
 import cr.ac.tec.ce3104.comms.Client;
 import cr.ac.tec.ce3104.comms.Command;
 import cr.ac.tec.ce3104.comms.CommandBatch;
-import cr.ac.tec.ce3104.gameobjects.GameObject;
-import cr.ac.tec.ce3104.gameobjects.GameObjectObserver;
-import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
+import cr.ac.tec.ce3104.gameobjects.*;
 import cr.ac.tec.ce3104.levels.Level;
 import cr.ac.tec.ce3104.levels.Level1;
 import cr.ac.tec.ce3104.modes.ControllableMode;
@@ -135,6 +133,22 @@ public class Game implements GameObjectObserver {
             // Se contarresta el movimiento especulativo de los clientes
             object.getMode().onHit(object, hitOrientation);
         } else {
+            object.relocate(position);
+        }*/
+        /*if (object instanceof Squid) {
+            Command command = new Command().putString("op", "move").putInt("x", 60).putInt("y", 100).putInt("id", 4);
+            this.outputQueue.add(command);
+            this.commit();
+            //object.switchTo(object.getMode());
+        } else if (object instanceof Crab) {
+            Command command = new Command().putString("op", "move").putInt("x", 120).putInt("y", 100).putInt("id", 4);
+            this.outputQueue.add(command);
+            this.commit();
+        } else if (object instanceof Octopus) {
+            Command command = new Command().putString("op", "move").putInt("x", 180).putInt("y", 100).putInt("id", 4);
+            this.outputQueue.add(command);
+            this.commit();
+        } else{
             object.relocate(position);
         }*/
         object.relocate(position);

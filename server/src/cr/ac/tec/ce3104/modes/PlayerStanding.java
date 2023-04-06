@@ -7,7 +7,7 @@ import cr.ac.tec.ce3104.resources.Sequence;
 import cr.ac.tec.ce3104.resources.Sprite;
 
 // The player stands still
-public class Standing implements ControllableMode {
+public class PlayerStanding implements ControllableMode {
     private HorizontalDirection direction;
     private Boolean initial = false;
 
@@ -15,7 +15,7 @@ public class Standing implements ControllableMode {
      * Creates a new mode for the player which indicates that the player's avatar is immobile
      * @param direction horizontal direction the player can move
      */
-    public Standing(HorizontalDirection direction) {
+    public PlayerStanding(HorizontalDirection direction) {
         this.direction = direction;
     }
 
@@ -23,8 +23,8 @@ public class Standing implements ControllableMode {
      * Creates a new mode for the player at the start of game position
      * @return standing mode used in the starting position.
      */
-    public static Standing initial() {
-        Standing mode = new Standing(HorizontalDirection.RIGHT);
+    public static PlayerStanding initial() {
+        PlayerStanding mode = new PlayerStanding(HorizontalDirection.RIGHT);
         mode.initial = true;
         return mode;
     }
@@ -51,12 +51,12 @@ public class Standing implements ControllableMode {
 
     @Override
     public void onMoveLeft(PlayerAvatar player) {
-        player.switchTo(new Moving(HorizontalDirection.LEFT));
+        player.switchTo(new PlayerMoving(HorizontalDirection.LEFT));
     }
 
     @Override
     public void onMoveRight(PlayerAvatar player) {
-        player.switchTo(new Moving(HorizontalDirection.RIGHT));
+        player.switchTo(new PlayerMoving(HorizontalDirection.RIGHT));
     }
 
     @Override
