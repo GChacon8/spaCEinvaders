@@ -1,7 +1,9 @@
 package cr.ac.tec.ce3104.modes;
 
 import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
+import cr.ac.tec.ce3104.gameobjects.PlayerShot;
 import cr.ac.tec.ce3104.physics.HorizontalDirection;
+import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.physics.Speed;
 import cr.ac.tec.ce3104.resources.Sequence;
 import cr.ac.tec.ce3104.resources.Sprite;
@@ -41,11 +43,6 @@ public class PlayerStanding implements ControllableMode {
 
     @Override
     public Sequence getSequence() {
-        /*if (this.initial) {
-            return Sprite.STANDING_FIRST;
-        }
-
-        return this.direction == HorizontalDirection.LEFT ? Sprite.STANDING_LEFT : Sprite.STANDING_RIGHT;*/
         return Sprite.SPACECRAFT;
     }
 
@@ -61,6 +58,8 @@ public class PlayerStanding implements ControllableMode {
 
     @Override
     public void onShoot(PlayerAvatar player) {
-        //player.switchTo(new Jumping(this, player));
+        Integer posX = player.getPosition().getX() + 4;
+        Integer posY = player.getPosition().getY() - 4;
+        player.createShoot(new Position(posX, posY));
     }
 }

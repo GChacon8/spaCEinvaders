@@ -70,6 +70,17 @@ public abstract class GameObject {
     }
 
     /**
+     * Deletes the records of the current entity from its observer, technically deleting itself
+     */
+    public void delete() {
+        if (this.observer != null) {
+            this.observer.onObjectDeleted(this);
+            this.observer.log("Object " + this.id + " deleted");
+            this.observer = null;
+        }
+    }
+
+    /**
      * Gets the type of collisions that can be had with the object
      * @return type of collision with the object
      */

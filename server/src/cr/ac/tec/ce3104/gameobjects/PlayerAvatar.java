@@ -55,4 +55,8 @@ public class PlayerAvatar extends GameObject{
 
         super.switchTo(newMode);
     }
+
+    public void createShoot(Position position) {
+        game.spawn(new PlayerShot(0, position));
+    }
 }

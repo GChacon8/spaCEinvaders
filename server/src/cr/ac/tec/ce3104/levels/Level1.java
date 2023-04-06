@@ -104,6 +104,8 @@ public class Level1 implements Level{
             game.spawn(new EnemyFactory().createEnemy(EnemyType.SQUID, -6, new Position(posX, posY)));
             posX += 20;
         }*/
+        //PlayerShot playerShot = new PlayerShot(0, new Position(130, 130));
+        //game.spawn(playerShot);
 
         // PLayer
         Integer initialX = 230 - Sprite.SPACECRAFT.getSize().getHeight();
