@@ -9,10 +9,9 @@ public class EnemyFactory {
      * @param type desired enemy type
      * @param difficulty enemy characteristic difficulty
      * @param position enemy starting position
-     * @param score score given by eliminating the enemy
      * @return a enemy
      */
-    public Enemy createEnemy(EnemyType type, Integer difficulty, Position position, Integer score) {
+    public Enemy createEnemy(EnemyType type, Integer difficulty, Position position) {
         switch (type) {
             case SQUID -> {
                 return new Squid(difficulty, position);
@@ -22,9 +21,6 @@ public class EnemyFactory {
             }
             case OCTOPUS -> {
                 return new Octopus(difficulty, position);
-            }
-            case SAUCER -> {
-                return new Saucer(difficulty, position, score);
             }
             default -> {
                 assert false;

@@ -4,6 +4,7 @@ import cr.ac.tec.ce3104.physics.Dynamics;
 import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.resources.Sprite;
 
+// A bunker
 public class Bunker extends GameObject{
 
     /**
@@ -11,7 +12,7 @@ public class Bunker extends GameObject{
      * @param position in which you want to place the bunker on the game screen
      */
     public Bunker(Position position) {
-        super(Sprite.BUNKER1, position);
+        super(Sprite.BUNKER, position);
     }
 
     @Override

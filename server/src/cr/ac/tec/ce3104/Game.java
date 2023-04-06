@@ -151,6 +151,7 @@ public class Game implements GameObjectObserver {
         } else{
             object.relocate(position);
         }*/
+        //object.getMode().onHit(object, hitOrientation);
         object.relocate(position);
 
         /*GameObject target = placement.getInteractionTarget();
@@ -235,6 +236,22 @@ public class Game implements GameObjectObserver {
      */
     public Integer getPlayerId() {
         return this.playerId;
+    }
+
+    /**
+     * Gets the difficulty of the current state of the game
+     * @return game difficulty level
+     */
+    public Integer getDifficulty() {
+        return this.difficulty;
+    }
+
+    /**
+     * Gets the hash map of the active entities in the game
+     * @return game entity hashmap
+     */
+    public HashMap<Integer, GameObject> getGameObjects() {
+        return this.gameObjects;
     }
 
     /**

@@ -95,7 +95,7 @@ void update_stats(int lives, int score)
 
 	// The label text is generated and rendered
 	char text[STATS_LABEL_MAX_CHARS];
-	snprintf(text, sizeof text, STATS_LABEL_FORMAT, lives, score);
+	snprintf(text, sizeof text, STATS_LABEL_FORMAT, score, lives);
 
 	SDL_Color fg = STATS_LABEL_COLOR;
 	SDL_Color bg = { .r = COLOR_BLACK, .g = COLOR_BLACK, .b = COLOR_BLACK, .a = COLOR_BLACK };

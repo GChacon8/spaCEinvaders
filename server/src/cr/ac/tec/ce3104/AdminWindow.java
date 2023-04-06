@@ -1,5 +1,9 @@
 package cr.ac.tec.ce3104;
 
+import cr.ac.tec.ce3104.gameobjects.*;
+import cr.ac.tec.ce3104.physics.HorizontalDirection;
+import cr.ac.tec.ce3104.physics.Position;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.BufferedReader;
@@ -9,6 +13,7 @@ import java.io.InputStreamReader;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.util.Random;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
@@ -106,10 +111,14 @@ public class AdminWindow {
                     System.out.println("=== Available commands ===");
                     System.out.println("help: Show command help");
                     System.out.println("clear: Clears the command line");
-                    System.out.println("list-games: Show running games");
+                    System.out.println("game-list: Show running games");
+                    System.out.println("object-list <game>: Show all entities in a running game");
+                    System.out.println("add-enemy <game> <x> <y> [squid|crab|octopus]: Add a enemy");
+                    System.out.println("add-enemy-line <game> <x> <y> [squid|crab|octopus]: Add a enemy");
+                    System.out.println("add-saucer <game> <score>: Add a flying saucer");
                 }
                 case "clear" -> this.consoleOutput.setText("");
-                case "list-games" -> {
+                case "game-list" -> {
                     Boolean atLeastOne = false;
                     for (Integer id : Server.getInstance().getGameIds()) {
                         atLeastOne = true;
@@ -121,14 +130,116 @@ public class AdminWindow {
                     if (!atLeastOne) {
                         System.out.println("No games are running");
                     }
+                }
+                case "object-list" -> {
+                    Game game = expectGame(command, 1);
+                    for (GameObject object : game.getGameObjects().values()) {
+                        System.out.println(object);
+                    }
+                    System.out.println("Total: " + game.getGameObjects().size());
+                }
+                case "add-enemy" -> {
+                    Game game = expectGame(command, 1);
+                    Integer posX = expectInteger(command, 2);
+                    Integer posY = expectInteger(command, 3);
 
-                    break;
+                    EnemyType type = switch (expectArgument(command, 4)) {
+                        case "squid" -> EnemyType.SQUID;
+                        case "crab" -> EnemyType.CRAB;
+                        case "octopus" -> EnemyType.OCTOPUS;
+                        default -> throw new Exception();
+                    };
+
+                    Position position = new Position(posX, posY);
+                    Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position));
+                    System.out.println("Created enemy " + enemy);
+                }
+                case "add-enemy-line" -> {
+                    Game game = expectGame(command, 1);
+                    Integer posX = 74;
+                    Integer posY = expectInteger(command, 2);
+
+                    EnemyType type = switch (expectArgument(command, 3)) {
+                        case "squid" -> EnemyType.SQUID;
+                        case "crab" -> EnemyType.CRAB;
+                        case "octopus" -> EnemyType.OCTOPUS;
+                        default -> throw new Exception();
+                    };
+
+                    Integer i;
+                    for (i = 0; i <= 8; i++) {
+                        Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, new Position(posX, posY)));
+                        System.out.println("Created enemy " + enemy);
+                        posX += 20;
+                    }
+                }
+                case "add-saucer" -> {
+                    Game game = expectGame(command, 1);
+                    Integer score = expectInteger(command, 2);
+
+                    Saucer saucer;
+                    Random random = new Random();
+                    int randomNumber = random.nextInt(2);
+                    if (randomNumber == 0) {
+                        saucer = new Saucer(0, HorizontalDirection.LEFT, new Position(256, 50), score);
+                        game.spawn(saucer);
+                    } else{
+                        saucer = new Saucer(0, HorizontalDirection.RIGHT, new Position(0, 50), score);
+                        game.spawn(saucer);
+                    }
+                    System.out.println("Created flying sacucer " + saucer);
                 }
                 default -> System.err.println("Error: unknown command '" + command[0] + "'. Type 'help' for more information.");
             }
         } catch (Exception exception) {
             System.err.println("Error: bad usage. Type 'help' for more information.");
         }
+    }
+
+    /**
+     * Gets the game reference of a command entered the admin console
+     * @param command array of strings that make up the command read from the administration console
+     * @param index position of the argument to extract in the command line
+     * @return game reference
+     * @throws Exception error that arises when there is an invalid entry by the administrator
+     */
+    private static Game expectGame(String[] command, Integer index) throws Exception {
+        Integer id = expectInteger(command, index);
+        Game game = Server.getInstance().getGame(id);
+        if (game == null) {
+            System.err.println("Error: no game has ID " + id);
+            throw new Exception();
+        }
+        return game;
+    }
+
+    /**
+     * Extract an integer value from a command entered from the administration console
+     * @param command array of strings that make up the command read from the administration console
+     * @param index position of the argument to extract in the command line
+     * @return Integer given in command
+     * @throws Exception error that arises when there is an invalid entry by the administrator
+     */
+    private static Integer expectInteger(String[] command, Integer index) throws Exception {
+        try {
+            return Integer.parseInt(expectArgument(command, index));
+        } catch (NumberFormatException exception) {
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Extract an integer value from a command entered from the administration console
+     * @param command array of strings that make up the command read from the administration console
+     * @param index position of the argument to extract in the command line
+     * @return extracted string value
+     * @throws Exception error that arises when there is an invalid entry by the administrator
+     */
+    private static String expectArgument(String[] command, Integer index) throws Exception {
+        if (index >= command.length) {
+            throw new Exception();
+        }
+        return command[index];
     }
 
     /**

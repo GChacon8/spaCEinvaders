@@ -2,6 +2,7 @@ package cr.ac.tec.ce3104.levels;
 
 import cr.ac.tec.ce3104.Game;
 import cr.ac.tec.ce3104.gameobjects.*;
+import cr.ac.tec.ce3104.physics.HorizontalDirection;
 import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.physics.Size;
 import cr.ac.tec.ce3104.resources.Sprite;
@@ -20,19 +21,92 @@ public class Level1 implements Level{
     @Override
     public PlayerAvatar setup(Game game, Integer initialScore) {
         // Bunkers
-        game.spawn(new Bunker(new Position(48, 180)));
-        game.spawn(new Bunker(new Position(92, 180)));
-        game.spawn(new Bunker(new Position(138, 180)));
-        game.spawn(new Bunker(new Position(182, 180)));
+        Integer i;
+        Integer posX = 34;
+        Integer posY = 190;
+        Integer count = 0;
+        while(count <= 3){
+            for (i = 0; i <= 2; i++){
+                game.spawn(new Bunker(new Position(posX, posY)));
+                posX += 4;
+            }
+
+            posX -= 16;
+            posY += 2;
+            for (i = 0; i <= 4; i++){
+                game.spawn(new Bunker(new Position(posX, posY)));
+                posX += 4;
+            }
+
+            posX -= 22;
+            posY += 4;
+            for (i = 0; i <= 5; i++){
+                game.spawn(new Bunker(new Position(posX, posY)));
+                posX += 4;
+            }
+
+            posX -= 16;
+            posY += 2;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 4;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX -= 12;
+            posY += 2;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 4;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 12;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 4;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX -= 20;
+            posY += 4;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 4;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 12;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 4;
+            game.spawn(new Bunker(new Position(posX, posY)));
+
+            posX += 45;
+            posY = 190;
+            count++;
+        }
 
         // Enemies
-        //game.spawn(new Squid(-3, new Position(100, 100)));
-        game.spawn(new EnemyFactory().createEnemy(EnemyType.SQUID, -3, new Position(60, 100), Squid.SQUID_SCORE));
-        game.spawn(new EnemyFactory().createEnemy(EnemyType.CRAB, -3, new Position(120, 100), Crab.CRAB_SCORE));
-        game.spawn(new EnemyFactory().createEnemy(EnemyType.OCTOPUS, -3, new Position(180, 100), Octopus.OCTOPUS_SCORE));
+        /*posX = 74;
+        posY = 70;
+        for (i = 0; i <= 8; i++) {
+            game.spawn(new EnemyFactory().createEnemy(EnemyType.OCTOPUS, -6, new Position(posX, posY)));
+            posX += 20;
+        }
+
+        posX = 74;
+        posY = 90;
+        for (i = 0; i <= 8; i++) {
+            game.spawn(new EnemyFactory().createEnemy(EnemyType.CRAB, -6, new Position(posX, posY)));
+            posX += 20;
+        }
+
+        posX = 74;
+        posY = 110;
+        for (i = 0; i <= 8; i++) {
+            game.spawn(new EnemyFactory().createEnemy(EnemyType.SQUID, -6, new Position(posX, posY)));
+            posX += 20;
+        }*/
 
         // PLayer
-        Integer initialX = 220 - Sprite.SPACECRAFT.getSize().getHeight();
+        Integer initialX = 230 - Sprite.SPACECRAFT.getSize().getHeight();
         return game.spawn(new PlayerAvatar(new Position(123, initialX), initialScore, game));
     }
 }

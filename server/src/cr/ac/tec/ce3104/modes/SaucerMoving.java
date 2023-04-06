@@ -7,13 +7,14 @@ import cr.ac.tec.ce3104.resources.Sequence;
 import cr.ac.tec.ce3104.resources.Sprite;
 
 public class SaucerMoving implements Mode{
-    private static final Integer SPEED_NUMERATOR = 2;
+    private static final Integer SPEED_NUMERATOR = 4;
 
-    private HorizontalDirection direction = HorizontalDirection.LEFT;
+    private HorizontalDirection direction;
     private Integer speedDenominator;
 
-    public SaucerMoving(Integer speedDenominator) {
+    public SaucerMoving(Integer speedDenominator, HorizontalDirection direction) {
         this.speedDenominator = speedDenominator;
+        this.direction = direction;
     }
 
     @Override

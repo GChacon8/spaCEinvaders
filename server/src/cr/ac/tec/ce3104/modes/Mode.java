@@ -28,5 +28,5 @@ public interface Mode {
      * @param object object to manage
      * @param orientation mode characteristic direction
      */
-    //default void onHit(GameObject object, Orientation orientation) {}
+    default void onHit(GameObject object, Orientation orientation) {}
 }

@@ -1,6 +1,8 @@
 package cr.ac.tec.ce3104.modes;
 
+import cr.ac.tec.ce3104.gameobjects.GameObject;
 import cr.ac.tec.ce3104.physics.HorizontalDirection;
+import cr.ac.tec.ce3104.physics.Orientation;
 import cr.ac.tec.ce3104.physics.Speed;
 import cr.ac.tec.ce3104.physics.SpeedRatio;
 import cr.ac.tec.ce3104.resources.Sequence;
@@ -9,6 +11,7 @@ import static cr.ac.tec.ce3104.resources.Animation.OCTOPUS_ANIMATION;
 
 public class OctopusMoving implements Mode{
     private static final Integer SPEED_NUMERATOR = 2;
+    private Integer moves = 0;
 
     private HorizontalDirection direction = HorizontalDirection.LEFT;
     private Integer speedDenominator;
@@ -29,5 +32,22 @@ public class OctopusMoving implements Mode{
     @Override
     public Sequence getSequence() {
         return OCTOPUS_ANIMATION;
+    }
+
+    @Override
+    public void onRelocate(GameObject enemy) {
+        if (moves == 30){
+            moves = 0;
+            this.onHit(enemy, null);
+        }else {
+            moves++;
+        }
+    }
+
+    @Override
+    public void onHit(GameObject enemy, Orientation orientation) {
+        // If it hits, it changes direction
+        this.direction = this.direction.invert();
+        enemy.switchTo(this);
     }
 }

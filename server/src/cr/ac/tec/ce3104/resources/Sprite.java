@@ -25,18 +25,16 @@ public class Sprite extends Sequence{
     public static final Sprite FLYING_SAUCER = Sprite.byId(7);
 
     // Bunker
-    public static final Sprite BUNKER1 = Sprite.byId(8);
-    public static final Sprite BUNKER2 = Sprite.byId(9);
-    public static final Sprite BUNKER3 = Sprite.byId(10);
+    public static final Sprite BUNKER = Sprite.byId(8);
 
     // Spacecraft
-    public static final Sprite SPACECRAFT = Sprite.byId(11);
+    public static final Sprite SPACECRAFT = Sprite.byId(9);
 
     // Shoots
-    public static final Sprite SHOOT1 = Sprite.byId(12);
-    public static final Sprite SHOOT2 = Sprite.byId(13);
-    public static final Sprite SHOOT3 = Sprite.byId(14);
-    public static final Sprite SHOOT4 = Sprite.byId(15);
+    public static final Sprite SHOT1 = Sprite.byId(10);
+    public static final Sprite SHOT2 = Sprite.byId(11);
+    public static final Sprite SHOT3 = Sprite.byId(12);
+    public static final Sprite SHOT4 = Sprite.byId(13);
 
     // known sprites
     private static HashMap<Integer, Sprite> sprites = null;

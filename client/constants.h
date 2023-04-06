@@ -27,9 +27,9 @@
 // Parameters associated with the statistics label
 #define FONT_FILE             "assets/arcade_n.ttf"
 #define FONT_POINT_SIZE       8
-#define STATS_LABEL_X         130
+#define STATS_LABEL_X         8
 #define STATS_LABEL_Y         10
-#define STATS_LABEL_FORMAT    "[J]%d [S]%04d"
+#define STATS_LABEL_FORMAT    "SCORE: %04d           LIVES: %d"
 #define STATS_LABEL_MAX_CHARS 32
 #define STATS_LABEL_COLOR     { .r = COLOR_WHITE, .g = COLOR_WHITE, .b = COLOR_WHITE, .a = COLOR_WHITE }
 
