@@ -1,6 +1,6 @@
 package cr.ac.tec.ce3104.modes;
 
-import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
+import cr.ac.tec.ce3104.gameobjects.Player;
 import cr.ac.tec.ce3104.physics.HorizontalDirection;
 
 // A controllable mode is one that responds to input events
@@ -15,23 +15,23 @@ public interface ControllableMode extends Mode{
      * Indicates how a mode reacts to a key release event
      * @param player reference to player avatar
      */
-    default void onRelease(PlayerAvatar player) {}
+    default void onRelease(Player player) {}
 
     /**
      * Indicates how the mode should react to a Jump event
      * @param player reference to player avatar
      */
-    default void onShoot(PlayerAvatar player) {}
+    default void onShoot(Player player) {}
 
     /**
      * Indicates how the mode should react to a movement to the left event
      * @param player reference to player avatar
      */
-    default void onMoveLeft(PlayerAvatar player) {}
+    default void onMoveLeft(Player player) {}
 
     /**
      * Indicates how the mode should react to a movement to the right event
      * @param player reference to player avatar
      */
-    default void onMoveRight(PlayerAvatar player) {}
+    default void onMoveRight(Player player) {}
 }

@@ -12,12 +12,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
 
-// Types of clients
-enum ClientType {
-    PLAYER,
-    SPECTATOR;
-}
-
 // Instances of this class manage a particular client
 public class Client implements AutoCloseable {
 

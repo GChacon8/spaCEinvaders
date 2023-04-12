@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class Game implements GameObjectObserver {
     // Entities and game state
     private Level level = new Level1();
-    private PlayerAvatar player;
+    private Player player;
     private HashMap<Integer, GameObject> gameObjects = new HashMap<>();
 
     // Statistics
@@ -74,7 +74,7 @@ public class Game implements GameObjectObserver {
 
         // Changes to the game occur when each client disconnects
         if (this.clients.isEmpty()) {
-            this.log("No clients left; game finalized");
+            this.log("No clients left. Game finalized");
             Server.getInstance().removeGame(this.playerId);
         } else if (client.getClientId() == this.playerId) {
             this.log("Player client has left, freezing all entities...");
@@ -125,41 +125,7 @@ public class Game implements GameObjectObserver {
             return;
         }
 
-        // Crash and collision cases are tried
-        //Placement placement = new Placement(object, position, this.level, this.gameObjects.values());
-
-        /*Orientation hitOrientation = placement.getHitOrientation();
-        if (hitOrientation != null) {
-            // Se contarresta el movimiento especulativo de los clientes
-            object.getMode().onHit(object, hitOrientation);
-        } else {
-            object.relocate(position);
-        }*/
-        /*if (object instanceof Squid) {
-            Command command = new Command().putString("op", "move").putInt("x", 60).putInt("y", 100).putInt("id", 4);
-            this.outputQueue.add(command);
-            this.commit();
-            //object.switchTo(object.getMode());
-        } else if (object instanceof Crab) {
-            Command command = new Command().putString("op", "move").putInt("x", 120).putInt("y", 100).putInt("id", 4);
-            this.outputQueue.add(command);
-            this.commit();
-        } else if (object instanceof Octopus) {
-            Command command = new Command().putString("op", "move").putInt("x", 180).putInt("y", 100).putInt("id", 4);
-            this.outputQueue.add(command);
-            this.commit();
-        } else{
-            object.relocate(position);
-        }*/
-        //object.getMode().onHit(object, hitOrientation);
         object.relocate(position);
-
-        /*GameObject target = placement.getInteractionTarget();
-        if (target != null) {
-            // Interacción mutua entre dos entidades interactivas
-            object.onInteraction(target);
-            target.onInteraction(object);
-        }*/
     }
 
     /**
@@ -228,7 +194,7 @@ public class Game implements GameObjectObserver {
      */
     @Override
     public void log(String message) {
-        System.out.println("[GAME " + this.playerId + "] " + message);
+        System.out.println("[GAME-" + this.playerId + "] " + message);
     }
 
     /**

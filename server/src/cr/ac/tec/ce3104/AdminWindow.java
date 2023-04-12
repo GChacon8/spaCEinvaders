@@ -114,7 +114,7 @@ public class AdminWindow {
                     System.out.println("game-list: Show running games");
                     System.out.println("object-list <game>: Show all entities in a running game");
                     System.out.println("add-enemy <game> <x> <y> [squid|crab|octopus]: Add a enemy");
-                    System.out.println("add-enemy-line <game> <x> <y> [squid|crab|octopus]: Add a enemy");
+                    System.out.println("add-enemy-line <game> <y> [squid|crab|octopus]: Add a enemy line");
                     System.out.println("add-saucer <game> <score>: Add a flying saucer");
                 }
                 case "clear" -> this.consoleOutput.setText("");

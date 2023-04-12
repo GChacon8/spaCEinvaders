@@ -1,6 +1,6 @@
 package cr.ac.tec.ce3104.modes;
 
-import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
+import cr.ac.tec.ce3104.gameobjects.Player;
 import cr.ac.tec.ce3104.physics.HorizontalDirection;
 import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.physics.Speed;
@@ -42,19 +42,19 @@ public class PlayerMoving implements ControllableMode {
     }
 
     @Override
-    public void onMoveLeft(PlayerAvatar player) {
+    public void onMoveLeft(Player player) {
         this.direction = HorizontalDirection.LEFT;
         player.switchTo(this);
     }
 
     @Override
-    public void onMoveRight(PlayerAvatar player) {
+    public void onMoveRight(Player player) {
         this.direction = HorizontalDirection.RIGHT;
         player.switchTo(this);
     }
 
     @Override
-    public void onShoot(PlayerAvatar player) {
+    public void onShoot(Player player) {
         Integer posX = player.getPosition().getX() + 4;
         Integer posY = player.getPosition().getY() - 4;
         player.createShoot(new Position(posX, posY));
@@ -62,7 +62,7 @@ public class PlayerMoving implements ControllableMode {
     }
 
     @Override
-    public void onRelease(PlayerAvatar player) {
+    public void onRelease(Player player) {
         player.switchTo(new PlayerStanding(this.direction));
     }
 }

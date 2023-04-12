@@ -4,6 +4,5 @@ package cr.ac.tec.ce3104.gameobjects;
 public enum EnemyType {
     SQUID,
     CRAB,
-    OCTOPUS,
-    SAUCER;
+    OCTOPUS;
 }

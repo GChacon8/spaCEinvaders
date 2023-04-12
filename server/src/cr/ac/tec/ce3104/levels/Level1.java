@@ -2,7 +2,6 @@ package cr.ac.tec.ce3104.levels;
 
 import cr.ac.tec.ce3104.Game;
 import cr.ac.tec.ce3104.gameobjects.*;
-import cr.ac.tec.ce3104.physics.HorizontalDirection;
 import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.physics.Size;
 import cr.ac.tec.ce3104.resources.Sprite;
@@ -19,7 +18,7 @@ public class Level1 implements Level{
     }
 
     @Override
-    public PlayerAvatar setup(Game game, Integer initialScore) {
+    public Player setup(Game game, Integer initialScore) {
         // Bunkers
         Integer i;
         Integer posX = 34;
@@ -104,11 +103,9 @@ public class Level1 implements Level{
             game.spawn(new EnemyFactory().createEnemy(EnemyType.SQUID, -6, new Position(posX, posY)));
             posX += 20;
         }*/
-        //PlayerShot playerShot = new PlayerShot(0, new Position(130, 130));
-        //game.spawn(playerShot);
 
         // PLayer
         Integer initialX = 230 - Sprite.SPACECRAFT.getSize().getHeight();
-        return game.spawn(new PlayerAvatar(new Position(123, initialX), initialScore, game));
+        return game.spawn(new Player(new Position(123, initialX), initialScore, game));
     }
 }

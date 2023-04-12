@@ -7,7 +7,7 @@ import cr.ac.tec.ce3104.modes.PlayerStanding;
 import cr.ac.tec.ce3104.physics.Dynamics;
 import cr.ac.tec.ce3104.physics.Position;
 
-public class PlayerAvatar extends GameObject{
+public class Player extends GameObject{
     private Integer score;
     private Boolean lost = false;
     private Boolean hasKey = false;
@@ -19,7 +19,7 @@ public class PlayerAvatar extends GameObject{
      * @param initialScore initial score associated with the player
      * @param game game the player is in
      */
-    public PlayerAvatar(Position position, Integer initialScore, Game game) {
+    public Player(Position position, Integer initialScore, Game game) {
         super(PlayerStanding.initial(), position);
         this.score = initialScore;
         this.game = game;
@@ -45,12 +45,7 @@ public class PlayerAvatar extends GameObject{
     @Override
     public void switchTo(Mode newMode) {
         if (this.getMode() != newMode && newMode instanceof PlayerMoving) {
-            //Placement placement = this.game.testCollisions(this, this.getPosition());
 
-            /*GameObject target = placement.getInteractionTarget();
-            if (target == null || !(target instanceof Vines) || !this.inLastVines((Vines)target)) {
-                this.lastVines = null;
-            }*/
         }
 
         super.switchTo(newMode);

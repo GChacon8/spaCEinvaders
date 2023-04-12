@@ -1,7 +1,6 @@
 package cr.ac.tec.ce3104.modes;
 
 import cr.ac.tec.ce3104.gameobjects.GameObject;
-import cr.ac.tec.ce3104.physics.HorizontalDirection;
 import cr.ac.tec.ce3104.physics.Speed;
 import cr.ac.tec.ce3104.physics.SpeedRatio;
 import cr.ac.tec.ce3104.physics.VerticalDirection;

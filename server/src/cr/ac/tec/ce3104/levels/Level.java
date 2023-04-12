@@ -1,7 +1,7 @@
 package cr.ac.tec.ce3104.levels;
 
 import cr.ac.tec.ce3104.Game;
-import cr.ac.tec.ce3104.gameobjects.PlayerAvatar;
+import cr.ac.tec.ce3104.gameobjects.Player;
 import cr.ac.tec.ce3104.physics.Size;
 
 public interface Level {
@@ -17,5 +17,5 @@ public interface Level {
      * @param initialScore initial score with which the level begins
      * @return Reference to the entity representing the player
      */
-    PlayerAvatar setup(Game game, Integer initialScore);
+    Player setup(Game game, Integer initialScore);
 }
