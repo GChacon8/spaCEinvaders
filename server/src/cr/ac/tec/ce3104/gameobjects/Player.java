@@ -45,13 +45,43 @@ public class Player extends GameObject{
     @Override
     public void switchTo(Mode newMode) {
         if (this.getMode() != newMode && newMode instanceof PlayerMoving) {
-
+            //this.game.testCollisions(this, this.getPosition());
         }
 
         super.switchTo(newMode);
     }
 
+    @Override
+    public void onInteraction(GameObject other) {
+        if (other.isDangerous()) {
+            //this.die();
+            System.out.println("You die");
+        }
+    }
+
+    @Override
+    public void onFloatingContact(GameObject floating) {
+        System.out.println("onFloatingContact");
+    }
+
     public void createShoot(Position position) {
         game.spawn(new PlayerShot(0, position));
+    }
+
+    /**
+     * Adds the given score difference to the player's current score
+     * @param difference difference between current score and updated score
+     */
+    public void updateScore(Integer difference) {
+        this.score += difference;
+        this.refreshMode();
+    }
+
+    /**
+     * Get player's score
+     * @return player score
+     */
+    public Integer getScore() {
+        return this.score;
     }
 }

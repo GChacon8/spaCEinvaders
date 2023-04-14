@@ -3,6 +3,7 @@ package cr.ac.tec.ce3104.gameobjects;
 import cr.ac.tec.ce3104.comms.Command;
 import cr.ac.tec.ce3104.modes.Mode;
 import cr.ac.tec.ce3104.modes.Static;
+import cr.ac.tec.ce3104.physics.Bounds;
 import cr.ac.tec.ce3104.physics.Dynamics;
 import cr.ac.tec.ce3104.physics.Position;
 import cr.ac.tec.ce3104.physics.Size;
@@ -100,7 +101,7 @@ public abstract class GameObject {
                 String previousName = previous.getClass().getSimpleName();
                 String newName = newMode.getClass().getSimpleName();
 
-                this.observer.log("Object " + this + " switched from " + previousName + " to " + newName);
+                //this.observer.log("Object " + this + " switched from " + previousName + " to " + newName);
             }
         }
     }
@@ -171,5 +172,20 @@ public abstract class GameObject {
      */
     public Size getSize() {
         return this.mode.getSequence().getSize();
+    }
+
+    /**
+     * Gets the collision box of the entity
+     * @return entity collision box
+     */
+    public Bounds getBounds() {
+        return new Bounds(this.position, this.getSize());
+    }
+
+    /**
+     * Change the entity to refresh mode
+     */
+    protected void refreshMode() {
+        this.switchTo(this.mode);
     }
 }

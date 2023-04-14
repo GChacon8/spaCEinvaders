@@ -55,7 +55,7 @@ public class PlayerMoving implements ControllableMode {
 
     @Override
     public void onShoot(Player player) {
-        Integer posX = player.getPosition().getX() + 4;
+        Integer posX = player.getPosition().getX() + 3;
         Integer posY = player.getPosition().getY() - 4;
         player.createShoot(new Position(posX, posY));
         player.switchTo(this);

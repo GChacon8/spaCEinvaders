@@ -84,21 +84,21 @@ public class Level1 implements Level{
 
         // Enemies
         /*posX = 74;
-        posY = 70;
+        posY = 80;
         for (i = 0; i <= 8; i++) {
             game.spawn(new EnemyFactory().createEnemy(EnemyType.OCTOPUS, -6, new Position(posX, posY)));
             posX += 20;
         }
 
         posX = 74;
-        posY = 90;
+        posY = 100;
         for (i = 0; i <= 8; i++) {
             game.spawn(new EnemyFactory().createEnemy(EnemyType.CRAB, -6, new Position(posX, posY)));
             posX += 20;
         }
 
         posX = 74;
-        posY = 110;
+        posY = 120;
         for (i = 0; i <= 8; i++) {
             game.spawn(new EnemyFactory().createEnemy(EnemyType.SQUID, -6, new Position(posX, posY)));
             posX += 20;

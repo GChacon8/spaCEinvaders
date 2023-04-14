@@ -7,6 +7,9 @@ import cr.ac.tec.ce3104.gameobjects.*;
 import cr.ac.tec.ce3104.levels.Level;
 import cr.ac.tec.ce3104.levels.Level1;
 import cr.ac.tec.ce3104.modes.ControllableMode;
+import cr.ac.tec.ce3104.physics.Dynamics;
+import cr.ac.tec.ce3104.physics.Orientation;
+import cr.ac.tec.ce3104.physics.Placement;
 import cr.ac.tec.ce3104.physics.Position;
 
 import java.util.HashMap;
@@ -114,6 +117,16 @@ public class Game implements GameObjectObserver {
     }
 
     /**
+     * Indicates whether an object would collide if it were in a given position
+     * @param object object whose collision status you want to check
+     * @param position hypothetical position
+     * @return A `Placement` object that describes collision aspects
+     */
+    public synchronized Placement testCollisions(GameObject object, Position position) {
+        return new Placement(object, position, this.level, this.gameObjects.values(), false);
+    }
+
+    /**
      * Indicates the steps to carry out once a movement action by the player has been detected
      * @param objectId entity identifier that was moved
      * @param position position of the entity to manage
@@ -125,7 +138,31 @@ public class Game implements GameObjectObserver {
             return;
         }
 
-        object.relocate(position);
+        // Crash and collision cases are tested
+        Placement placement = new Placement(object, position, this.level, this.gameObjects.values());
+
+        Orientation hitOrientation = placement.getHitOrientation();
+        if (hitOrientation != null) {
+            // The speculative movement of clients is counteracted
+            object.getMode().onHit(object, hitOrientation);
+        } else {
+            object.relocate(position);
+        }
+
+        GameObject target = placement.getInteractionTarget();
+        if(target != null && target.getDynamics() == Dynamics.RIGID){
+            object.delete();
+            target.delete();
+        }
+
+        if(target != null && target.getDynamics() == Dynamics.INTERACTIVE && object instanceof PlayerShot){
+            object.delete();
+
+            if (target instanceof Enemy) {
+                player.updateScore(+((Enemy)target).getScore());
+                target.delete();
+            }
+        }
     }
 
     /**
@@ -158,6 +195,17 @@ public class Game implements GameObjectObserver {
     }
 
     /**
+     * Updates the values related to the game state
+     */
+    private void updateStats() {
+        // Score is only updated if there was a change
+        if (this.score != this.player.getScore()) {
+            this.score = this.player.getScore();
+            this.syncStats();
+        }
+    }
+
+    /**
      * Send the stored commands on the waiting list
      */
     private void commit() {
@@ -181,7 +229,7 @@ public class Game implements GameObjectObserver {
     public synchronized void onObjectModeChanged(GameObject object) {
         if (object == this.player) {
             // The player could have died or changed their stats
-            //this.updateStats();
+            this.updateStats();
         }
 
         this.outputQueue.add(object.makePutCommand());
