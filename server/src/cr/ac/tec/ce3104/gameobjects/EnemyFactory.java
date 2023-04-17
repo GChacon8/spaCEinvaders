@@ -12,16 +12,16 @@ public class EnemyFactory {
      * @param position enemy starting position
      * @return a enemy
      */
-    public Enemy createEnemy(EnemyType type, Integer difficulty, Position position, Boolean isList) {
+    public Enemy createEnemy(EnemyType type, Integer difficulty, Position position, Boolean isList, Game game) {
         switch (type) {
             case SQUID -> {
-                return new Squid(difficulty, position, isList);
+                return new Squid(difficulty, position, isList, game);
             }
             case CRAB -> {
-                return new Crab(difficulty, position, isList);
+                return new Crab(difficulty, position, isList, game);
             }
             case OCTOPUS -> {
-                return new Octopus(difficulty, position, isList);
+                return new Octopus(difficulty, position, isList, game);
             }
             default -> {
                 assert false;

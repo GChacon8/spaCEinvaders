@@ -31,10 +31,11 @@ public abstract class Enemy extends GameObject {
      * @param score score given by the enemy when eliminated by the player
      * @param isList validates if the enemy is created in a list
      */
-    protected Enemy(Mode mode, Position position, Integer score, Boolean isList) {
+    protected Enemy(Mode mode, Position position, Integer score, Boolean isList, Game game) {
         super(mode, position);
         this.score = score;
         this.isList = isList;
+        this.game = game;
     }
     @Override
     public Dynamics getDynamics() {

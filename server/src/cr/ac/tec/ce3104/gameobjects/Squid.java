@@ -14,7 +14,7 @@ public class Squid extends Enemy{
      * @param difficulty characteristic difficulty of squid
      * @param position position of the entity
      */
-    public Squid(Integer difficulty, Position position, Boolean isList) {
-        super(new SquidMoving(Enemy.getSpeedDenominator(difficulty), isList), position, SQUID_SCORE, isList);
+    public Squid(Integer difficulty, Position position, Boolean isList, Game game) {
+        super(new SquidMoving(Enemy.getSpeedDenominator(difficulty), isList), position, SQUID_SCORE, isList, game);
     }
 }

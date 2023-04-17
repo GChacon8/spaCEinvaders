@@ -156,7 +156,7 @@ public class AdminWindow {
 
                     Position position = new Position(posX, posY);
                     if(game.isValidPosition(position)) {
-                        Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, false));
+                        Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, false, game));
                         System.out.println("Created enemy " + enemy);
                     }
                     else{
@@ -180,7 +180,7 @@ public class AdminWindow {
                     if(game.isValidPosition(position)) {
                         Integer i;
                         for (i = 0; i <= 8; i++) {
-                            Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, true));
+                            Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, true, game));
                             System.out.println("Created enemy " + enemy);
                             posX += 20;
                         }
