@@ -69,6 +69,10 @@ public abstract class Enemy extends GameObject {
         return Math.max(1, 3 - difficulty);
     }
 
+    /**
+     * Spawns an enemy shot on the given position.
+     * @param position position to spawn the enemy.
+     */
     public void createShot(Position position){
         game.spawn(new EnemyShot(0, position));
     }

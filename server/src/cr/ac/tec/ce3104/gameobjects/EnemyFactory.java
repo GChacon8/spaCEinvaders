@@ -9,7 +9,9 @@ public class EnemyFactory {
      * Interface for the creation of enemies of various types
      * @param type desired enemy type
      * @param difficulty enemy characteristic difficulty
-     * @param position enemy starting position
+     * @param position enemy starting position.
+     * @param isList
+     * @param game game of the enemy
      * @return a enemy
      */
     public Enemy createEnemy(EnemyType type, Integer difficulty, Position position, Boolean isList, Game game) {

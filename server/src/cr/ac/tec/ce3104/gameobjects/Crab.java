@@ -13,6 +13,8 @@ public class Crab extends Enemy{
      * @param difficulty characteristic difficulty of squid
      * @param position position of the entity
      * @param isList validates if the crab is created in a list
+     * @param isList
+     * @param game game of the enemy
      */
     public Crab(Integer difficulty, Position position, Boolean isList, Game game) {
         super(new CrabMoving(Enemy.getSpeedDenominator(difficulty), isList), position, CRAB_SCORE, isList, game);

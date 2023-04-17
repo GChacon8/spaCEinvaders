@@ -162,6 +162,8 @@ public class AdminWindow {
                     else{
                         System.out.println("Can't generate object out of valid bounds (x=[0,240],y=[25,175])");
                     }
+
+                    // Invokes function to enable enemies shooting ability.
                     game.enemiesStartShooting();
                 }
                 case "add-enemy-line" -> {
@@ -183,11 +185,14 @@ public class AdminWindow {
                             Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, true, game));
                             System.out.println("Created enemy " + enemy);
                             posX += 20;
+                            position.setX(posX);
                         }
                     }
                     else{
                         System.out.println("Can't generate object out of valid bounds (y=[25,175])");
                     }
+
+                    // Invokes function to enable enemies shooting ability.
                     game.enemiesStartShooting();
                 }
                 case "add-saucer" -> {

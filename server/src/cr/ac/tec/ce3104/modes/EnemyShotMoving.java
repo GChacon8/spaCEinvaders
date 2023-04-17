@@ -17,7 +17,10 @@ public class EnemyShotMoving implements Mode{
     private VerticalDirection direction = VerticalDirection.DOWN;
     private Integer speedDenominator;
 
-
+    /**
+     * Constructor of the class.
+     * @param speedDenominator
+     */
     public EnemyShotMoving(Integer speedDenominator) {
         this.speedDenominator = speedDenominator;
     }
@@ -41,10 +44,8 @@ public class EnemyShotMoving implements Mode{
 
     }
 
-
     @Override
     public void onRelocate(GameObject playershot) {
-        // Revisar el alto de la ventana y reemplazar por 1000.
         if (playershot.getPosition().getY() > 260) {
             playershot.delete();
         }

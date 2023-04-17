@@ -304,18 +304,30 @@ public class Game implements GameObjectObserver {
         }
     }
 
+    /**
+     * Makes enemies hostile, so they start shooting.
+     * @throws Exception exception in case of malfunctioning thread.
+     */
     public synchronized void enemiesStartShooting() throws Exception {
+        // Lambda for threading.
         Runnable shooting = () -> {
             while(true){
                 HashSet<Integer> enemyObjectsIDs = new HashSet<>();
                 HashMap<Integer, GameObject> objects = this.gameObjects;
 
+                // Detects every enemy on the GameObjects HashMap.
                 for(GameObject object : objects.values()){
                     if(object instanceof Octopus || object instanceof Squid || object instanceof Crab){
                         enemyObjectsIDs.add(object.getId());
                     }
                 }
 
+                // In case there is no enemies generated on the HashMap.
+                if(enemyObjectsIDs.size() == 0){
+                   break;
+                }
+
+                // Selects a random enemy to shot.
                 Integer[] enemyObjectsIDsArray = enemyObjectsIDs.toArray(new Integer[enemyObjectsIDs.size()]);
 
                 Random rand = new Random();
@@ -325,16 +337,19 @@ public class Game implements GameObjectObserver {
 
                 Enemy enemyShooting = (Enemy) objects.get(enemyObjectsIDsArray[randomPos]);
 
+                // Creates a custom position to spawn the shot.
                 Position customPos = enemyShooting.getPosition();
                 customPos.setX(customPos.getX() + 2);
                 customPos.setY(customPos.getY() + 2);
 
+                // Spawns the shot.
                 enemyShooting.createShot(customPos);
 
+                // Delay for the next shot (Difficulty in order of the amount of enemies, the most enemies, the game get harder).
                 try{
                     if(enemyObjectsIDsArray.length <= 9){
                         sleep(2000);
-                    }else if(enemyObjectsIDsArray.length > 9 && enemyObjectsIDsArray.length <= 18){
+                    }else if(enemyObjectsIDsArray.length <= 18){
                         sleep(1500);
                     }else{
                         sleep(1000);
@@ -345,6 +360,7 @@ public class Game implements GameObjectObserver {
             }
         };
 
+        // To avoid multi threading.
         if(enemiesShooting == null){
             enemiesShooting = new Thread(shooting);
             enemiesShooting.start();

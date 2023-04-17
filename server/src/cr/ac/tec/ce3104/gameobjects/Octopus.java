@@ -12,6 +12,8 @@ public class Octopus extends Enemy{
      * Create a new squid and characteristics adapted according to the level of difficulty
      * @param difficulty characteristic difficulty of squid
      * @param position position of the entity
+     * @param isList
+     * @param game game of the enemy
      */
     public Octopus(Integer difficulty, Position position, Boolean isList, Game game) {
         super(new OctopusMoving(Enemy.getSpeedDenominator(difficulty), isList), position, OCTOPUS_SCORE, isList, game);

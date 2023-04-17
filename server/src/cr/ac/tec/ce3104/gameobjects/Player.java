@@ -68,6 +68,10 @@ public class Player extends GameObject{
         System.out.println("onFloatingContact");
     }
 
+    /**
+     * Creates a shot from the Player if hasShotAvailable flag is on true.
+     * @param position position to create a shot
+     */
     public void createShoot(Position position) {
         if(hasShotAvailable){
             game.spawn(new PlayerShot(0, position));
