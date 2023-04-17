@@ -7,6 +7,7 @@ import cr.ac.tec.ce3104.physics.Position;
 // A enemy
 public abstract class Enemy extends GameObject {
     private Integer score;
+    private Boolean isList;
 
     /**
      * Constructor that creates an enemy from an existing enemy mode of operation
@@ -17,8 +18,20 @@ public abstract class Enemy extends GameObject {
     protected Enemy(Mode mode, Position position, Integer score) {
         super(mode, position);
         this.score = score;
+        this.isList = false;
     }
-
+    /**
+     * Constructor that creates an enemy from an existing enemy mode of operation
+     * @param mode how the enemy should be created
+     * @param position position in which the enemy is initially placed
+     * @param score score given by the enemy when eliminated by the player
+     * @param isList validates if the enemy is created in a list
+     */
+    protected Enemy(Mode mode, Position position, Integer score, Boolean isList) {
+        super(mode, position);
+        this.score = score;
+        this.isList = isList;
+    }
     @Override
     public Dynamics getDynamics() {
         return Dynamics.INTERACTIVE;

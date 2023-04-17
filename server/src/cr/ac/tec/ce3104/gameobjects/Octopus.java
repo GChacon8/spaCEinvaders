@@ -12,7 +12,7 @@ public class Octopus extends Enemy{
      * @param difficulty characteristic difficulty of squid
      * @param position position of the entity
      */
-    public Octopus(Integer difficulty, Position position) {
-        super(new OctopusMoving(Enemy.getSpeedDenominator(difficulty)), position, OCTOPUS_SCORE);
+    public Octopus(Integer difficulty, Position position, Boolean isList) {
+        super(new OctopusMoving(Enemy.getSpeedDenominator(difficulty), isList), position, OCTOPUS_SCORE, isList);
     }
 }

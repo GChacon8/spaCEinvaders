@@ -125,7 +125,9 @@ public class Game implements GameObjectObserver {
     public synchronized Placement testCollisions(GameObject object, Position position) {
         return new Placement(object, position, this.level, this.gameObjects.values(), false);
     }
-
+    public Boolean isValidPosition(Position position){
+        return position.getX() >= 0 && position.getX() <= 240 && position.getY() >= 25 && position.getY() <= 175;
+    }
     /**
      * Indicates the steps to carry out once a movement action by the player has been detected
      * @param objectId entity identifier that was moved

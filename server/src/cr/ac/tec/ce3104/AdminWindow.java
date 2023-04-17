@@ -151,8 +151,13 @@ public class AdminWindow {
                     };
 
                     Position position = new Position(posX, posY);
-                    Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position));
-                    System.out.println("Created enemy " + enemy);
+                    if(game.isValidPosition(position)) {
+                        Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, false));
+                        System.out.println("Created enemy " + enemy);
+                    }
+                    else{
+                        System.out.println("Can't generate object out of valid bounds (x=[0,240],y=[25,175])");
+                    }
                 }
                 case "add-enemy-line" -> {
                     Game game = expectGame(command, 1);
@@ -165,12 +170,17 @@ public class AdminWindow {
                         case "octopus" -> EnemyType.OCTOPUS;
                         default -> throw new Exception();
                     };
-
-                    Integer i;
-                    for (i = 0; i <= 8; i++) {
-                        Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, new Position(posX, posY)));
-                        System.out.println("Created enemy " + enemy);
-                        posX += 20;
+                    Position position = new Position(posX, posY);
+                    if(game.isValidPosition(position)) {
+                        Integer i;
+                        for (i = 0; i <= 8; i++) {
+                            Enemy enemy = game.spawn(new EnemyFactory().createEnemy(type, -6, position, true));
+                            System.out.println("Created enemy " + enemy);
+                            posX += 20;
+                        }
+                    }
+                    else{
+                        System.out.println("Can't generate object out of valid bounds (y=[25,175])");
                     }
                 }
                 case "add-saucer" -> {
@@ -187,7 +197,7 @@ public class AdminWindow {
                         saucer = new Saucer(0, HorizontalDirection.RIGHT, new Position(0, 50), score);
                         game.spawn(saucer);
                     }
-                    System.out.println("Created flying sacucer " + saucer);
+                    System.out.println("Created flying saucer " + saucer);
                 }
                 default -> System.err.println("Error: unknown command '" + command[0] + "'. Type 'help' for more information.");
             }
