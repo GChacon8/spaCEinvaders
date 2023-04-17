@@ -1,6 +1,7 @@
 package cr.ac.tec.ce3104.modes;
 
 import cr.ac.tec.ce3104.gameobjects.GameObject;
+import cr.ac.tec.ce3104.gameobjects.Octopus;
 import cr.ac.tec.ce3104.physics.*;
 import cr.ac.tec.ce3104.resources.Sequence;
 
@@ -58,5 +59,12 @@ public class OctopusMoving implements Mode{
         moves = 0;
         enemy.relocate(new Position(enemy.getPosition().getX(),enemy.getPosition().getY()+10));
         enemy.switchTo(this);
+    }
+
+    @Override
+    public void onShoot(Octopus octopus) {
+        Integer posX = octopus.getPosition().getX();
+        Integer posY = octopus.getPosition().getY() + 4;
+        octopus.createShot(new Position(posX, posY));
     }
 }

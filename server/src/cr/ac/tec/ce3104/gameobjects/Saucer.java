@@ -1,5 +1,6 @@
 package cr.ac.tec.ce3104.gameobjects;
 
+import cr.ac.tec.ce3104.Game;
 import cr.ac.tec.ce3104.modes.SaucerMoving;
 import cr.ac.tec.ce3104.physics.HorizontalDirection;
 import cr.ac.tec.ce3104.physics.Position;
@@ -13,7 +14,7 @@ public class Saucer extends Enemy {
      * @param position position of the entity
      * @param score score of the flaying saucer
      */
-    public Saucer(Integer difficulty, HorizontalDirection direction, Position position, Integer score) {
-        super(new SaucerMoving(Enemy.getSpeedDenominator(difficulty), direction), position, score);
+    public Saucer(Integer difficulty, HorizontalDirection direction, Position position, Integer score, Game game) {
+        super(new SaucerMoving(Enemy.getSpeedDenominator(difficulty), direction), position, score, game);
     }
 }

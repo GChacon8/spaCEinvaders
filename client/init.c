@@ -30,7 +30,7 @@
 void init_sprites(void)
 {
 	glob_t paths = { 0 };
-	if(glob("/home/emanuel/Desktop/spaCEinvaders/assets/sprites/*/\?\?-*.png", GLOB_FLAGS, NULL, &paths) != 0)
+	if(glob("/home/andres/Escritorio/SpaCEInvaders/spaCEinvaders/assets/sprites/*/\?\?-*.png", GLOB_FLAGS, NULL, &paths) != 0)
 	{
 		fprintf(stderr, "Error: sprite glob failed (bad cwd?)\n");
 		quit(EXIT_FAILURE);
@@ -201,7 +201,7 @@ void init_sdl(void)
 	} else if(IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG)
 	{
 		sdl_image_fatal();
-	} else if(TTF_Init() != 0 || !(game.font = TTF_OpenFont("/home/emanuel/Desktop/spaCEinvaders/assets/arcade_n.ttf", FONT_POINT_SIZE)))
+	} else if(TTF_Init() != 0 || !(game.font = TTF_OpenFont("/home/andres/Escritorio/SpaCEInvaders/spaCEinvaders/assets/arcade_n.ttf", FONT_POINT_SIZE)))
 	{
 		sdl_ttf_fatal();
 	}

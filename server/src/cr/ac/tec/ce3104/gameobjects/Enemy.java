@@ -1,5 +1,6 @@
 package cr.ac.tec.ce3104.gameobjects;
 
+import cr.ac.tec.ce3104.Game;
 import cr.ac.tec.ce3104.modes.Mode;
 import cr.ac.tec.ce3104.physics.Dynamics;
 import cr.ac.tec.ce3104.physics.Position;
@@ -9,16 +10,19 @@ public abstract class Enemy extends GameObject {
     private Integer score;
     private Boolean isList;
 
+    protected Game game;
+
     /**
      * Constructor that creates an enemy from an existing enemy mode of operation
      * @param mode how the enemy should be created
      * @param position position in which the enemy is initially placed
      * @param score score given by the enemy when eliminated by the player
      */
-    protected Enemy(Mode mode, Position position, Integer score) {
+    protected Enemy(Mode mode, Position position, Integer score, Game game) {
         super(mode, position);
         this.score = score;
         this.isList = false;
+        this.game = game;
     }
     /**
      * Constructor that creates an enemy from an existing enemy mode of operation
@@ -62,5 +66,9 @@ public abstract class Enemy extends GameObject {
      */
     protected static Integer getSpeedDenominator(Integer difficulty) {
         return Math.max(1, 3 - difficulty);
+    }
+
+    public void createShot(Position position){
+        game.spawn(new EnemyShot(0, position));
     }
 }

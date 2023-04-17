@@ -28,4 +28,12 @@ public class Position {
     public Integer getY() {
         return this.y;
     }
+
+    public void setX(Integer x) {
+        this.x = x;
+    }
+
+    public void setY(Integer y) {
+        this.y = y;
+    }
 }

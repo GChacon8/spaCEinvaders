@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 import javax.swing.Box;
@@ -23,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultCaret;
+
+import static java.lang.Thread.sleep;
 
 // Management console
 public class AdminWindow {
@@ -158,9 +162,11 @@ public class AdminWindow {
                     else{
                         System.out.println("Can't generate object out of valid bounds (x=[0,240],y=[25,175])");
                     }
+                    game.enemiesStartShooting();
                 }
                 case "add-enemy-line" -> {
                     Game game = expectGame(command, 1);
+
                     Integer posX = 74;
                     Integer posY = expectInteger(command, 2);
 
@@ -182,6 +188,7 @@ public class AdminWindow {
                     else{
                         System.out.println("Can't generate object out of valid bounds (y=[25,175])");
                     }
+                    game.enemiesStartShooting();
                 }
                 case "add-saucer" -> {
                     Game game = expectGame(command, 1);
@@ -191,10 +198,10 @@ public class AdminWindow {
                     Random random = new Random();
                     int randomNumber = random.nextInt(2);
                     if (randomNumber == 0) {
-                        saucer = new Saucer(0, HorizontalDirection.LEFT, new Position(256, 50), score);
+                        saucer = new Saucer(0, HorizontalDirection.LEFT, new Position(256, 50), score, game);
                         game.spawn(saucer);
                     } else{
-                        saucer = new Saucer(0, HorizontalDirection.RIGHT, new Position(0, 50), score);
+                        saucer = new Saucer(0, HorizontalDirection.RIGHT, new Position(0, 50), score, game);
                         game.spawn(saucer);
                     }
                     System.out.println("Created flying saucer " + saucer);
@@ -202,7 +209,7 @@ public class AdminWindow {
                 default -> System.err.println("Error: unknown command '" + command[0] + "'. Type 'help' for more information.");
             }
         } catch (Exception exception) {
-            System.err.println("Error: bad usage. Type 'help' for more information.");
+            System.err.println("Error: bad usage. Type 'help' for more information." + exception.getMessage());
         }
     }
 

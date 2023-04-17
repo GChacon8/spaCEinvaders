@@ -1,5 +1,6 @@
 package cr.ac.tec.ce3104.gameobjects;
 
+import cr.ac.tec.ce3104.Game;
 import cr.ac.tec.ce3104.modes.OctopusMoving;
 import cr.ac.tec.ce3104.physics.Position;
 

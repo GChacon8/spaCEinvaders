@@ -1,6 +1,7 @@
 package cr.ac.tec.ce3104.modes;
 
 import cr.ac.tec.ce3104.gameobjects.GameObject;
+import cr.ac.tec.ce3104.gameobjects.Octopus;
 import cr.ac.tec.ce3104.physics.Orientation;
 import cr.ac.tec.ce3104.physics.Speed;
 import cr.ac.tec.ce3104.resources.Sequence;
@@ -29,4 +30,6 @@ public interface Mode {
      * @param orientation mode characteristic direction
      */
     default void onHit(GameObject object, Orientation orientation) {}
+
+    default void onShoot(Octopus octopus) {}
 }

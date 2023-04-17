@@ -10,6 +10,8 @@ public class Animation extends Sequence{
     public static final Animation CRAB_ANIMATION    = new Animation(2, 3);
     public static final Animation OCTOPUS_ANIMATION = new Animation(4, 5);
 
+    public static final Animation ENEMY_SHOT_ANIMATION = new Animation(11, 12);
+
     // Gets the sprites
     @Override
     public Sprite[] getSprites() {

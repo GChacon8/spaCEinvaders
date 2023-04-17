@@ -1,6 +1,7 @@
 package cr.ac.tec.ce3104.gameobjects;
 
 import cr.ac.tec.ce3104.physics.Position;
+import cr.ac.tec.ce3104.Game;
 
 // A factory of enemies
 public class EnemyFactory {

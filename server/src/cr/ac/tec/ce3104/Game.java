@@ -13,6 +13,10 @@ import cr.ac.tec.ce3104.physics.Placement;
 import cr.ac.tec.ce3104.physics.Position;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class Game implements GameObjectObserver {
     // Entities and game state
@@ -29,6 +33,8 @@ public class Game implements GameObjectObserver {
     private Integer playerId;
     private HashMap<Integer, Client> clients = new HashMap<>(); // Observers
     private CommandBatch outputQueue = new CommandBatch();
+    public Thread enemiesShooting;
+
 
     public Game(Client playerClient) {
         this.playerId = playerClient.getClientId();
@@ -295,6 +301,53 @@ public class Game implements GameObjectObserver {
         // It is not the same as doing it from outside, note that synchronized is preserved
         for (GameObject object : objects) {
             this.spawn(object);
+        }
+    }
+
+    public synchronized void enemiesStartShooting() throws Exception {
+        Runnable shooting = () -> {
+            while(true){
+                HashSet<Integer> enemyObjectsIDs = new HashSet<>();
+                HashMap<Integer, GameObject> objects = this.gameObjects;
+
+                for(GameObject object : objects.values()){
+                    if(object instanceof Octopus || object instanceof Squid || object instanceof Crab){
+                        enemyObjectsIDs.add(object.getId());
+                    }
+                }
+
+                Integer[] enemyObjectsIDsArray = enemyObjectsIDs.toArray(new Integer[enemyObjectsIDs.size()]);
+
+                Random rand = new Random();
+                Integer randomPos = 0;
+
+                randomPos = rand.nextInt(enemyObjectsIDsArray.length);
+
+                Enemy enemyShooting = (Enemy) objects.get(enemyObjectsIDsArray[randomPos]);
+
+                Position customPos = enemyShooting.getPosition();
+                customPos.setX(customPos.getX() + 2);
+                customPos.setY(customPos.getY() + 2);
+
+                enemyShooting.createShot(customPos);
+
+                try{
+                    if(enemyObjectsIDsArray.length <= 9){
+                        sleep(2000);
+                    }else if(enemyObjectsIDsArray.length > 9 && enemyObjectsIDsArray.length <= 18){
+                        sleep(1500);
+                    }else{
+                        sleep(1000);
+                    }
+                }catch (InterruptedException e){
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        if(enemiesShooting == null){
+            enemiesShooting = new Thread(shooting);
+            enemiesShooting.start();
         }
     }
 }

@@ -7,10 +7,14 @@ import cr.ac.tec.ce3104.modes.PlayerStanding;
 import cr.ac.tec.ce3104.physics.Dynamics;
 import cr.ac.tec.ce3104.physics.Position;
 
+import static java.lang.Thread.sleep;
+
+
 public class Player extends GameObject{
     private Integer score;
     private Boolean lost = false;
     private Boolean hasKey = false;
+    private Boolean hasShotAvailable = true;
     private Game game;
 
     /**
@@ -65,7 +69,23 @@ public class Player extends GameObject{
     }
 
     public void createShoot(Position position) {
-        game.spawn(new PlayerShot(0, position));
+        if(hasShotAvailable){
+            game.spawn(new PlayerShot(0, position));
+
+            // Waits 2 seconds to reload.
+            Runnable reloadShot = () -> {
+                this.hasShotAvailable = false;
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                this.hasShotAvailable = true;
+            };
+            Thread t = new Thread(reloadShot);
+
+            t.start();
+        }
     }
 
     /**
