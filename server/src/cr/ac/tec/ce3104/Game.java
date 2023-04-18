@@ -169,6 +169,38 @@ public class Game implements GameObjectObserver {
             if (target instanceof Enemy) {
                 player.updateScore(+((Enemy)target).getScore());
                 target.delete();
+            } else if (target instanceof EnemyShot) {
+                target.delete();
+            }
+        }
+
+        if(target instanceof Player && object instanceof EnemyShot){
+            object.delete();
+            player.updateLives();
+
+            if(player.getLives() == 0){
+                target.delete();
+
+                this.score = 0;
+                this.lives = 3;
+                this.enemiesShooting = null;
+
+                this.log("You lost");
+                this.log("Begin level reset");
+                this.player = null;
+
+                // Old objects from the past instance are removed
+                for (GameObject obj : this.gameObjects.values()) {
+                    this.outputQueue.add(obj.makeDeleteCommand());
+                }
+
+                // it cleans
+                this.gameObjects.clear();
+                this.syncStats();
+                this.commit();
+
+                // start of level
+                this.player = this.level.setup(this, this.score, this.lives);
             }
         }
     }
@@ -192,7 +224,7 @@ public class Game implements GameObjectObserver {
         this.commit();
 
         // start of level
-        this.player = this.level.setup(this, this.score);
+        this.player = this.level.setup(this, this.score, this.lives);
     }
 
     /**
@@ -206,9 +238,10 @@ public class Game implements GameObjectObserver {
      * Updates the values related to the game state
      */
     private void updateStats() {
-        // Score is only updated if there was a change
-        if (this.score != this.player.getScore()) {
+        // Score and lives are updated if there was a change
+        if (this.score != this.player.getScore() || this.lives != this.player.getLives()) {
             this.score = this.player.getScore();
+            this.lives = this.player.getLives();
             this.syncStats();
         }
     }
@@ -348,11 +381,11 @@ public class Game implements GameObjectObserver {
                 // Delay for the next shot (Difficulty in order of the amount of enemies, the most enemies, the game get harder).
                 try{
                     if(enemyObjectsIDsArray.length <= 9){
-                        sleep(2000);
+                        sleep(2500);
                     }else if(enemyObjectsIDsArray.length <= 18){
-                        sleep(1500);
+                        sleep(2000);
                     }else{
-                        sleep(1000);
+                        sleep(1500);
                     }
                 }catch (InterruptedException e){
                     throw new RuntimeException(e);

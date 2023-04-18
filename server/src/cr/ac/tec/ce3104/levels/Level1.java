@@ -18,7 +18,7 @@ public class Level1 implements Level{
     }
 
     @Override
-    public Player setup(Game game, Integer initialScore) {
+    public Player setup(Game game, Integer initialScore, Integer initialLives) {
         // Bunkers
         Integer i;
         Integer posX = 34;
@@ -82,30 +82,8 @@ public class Level1 implements Level{
             count++;
         }
 
-        // Enemies
-        /*posX = 74;
-        posY = 80;
-        for (i = 0; i <= 8; i++) {
-            game.spawn(new EnemyFactory().createEnemy(EnemyType.OCTOPUS, -6, new Position(posX, posY)));
-            posX += 20;
-        }
-
-        posX = 74;
-        posY = 100;
-        for (i = 0; i <= 8; i++) {
-            game.spawn(new EnemyFactory().createEnemy(EnemyType.CRAB, -6, new Position(posX, posY)));
-            posX += 20;
-        }
-
-        posX = 74;
-        posY = 120;
-        for (i = 0; i <= 8; i++) {
-            game.spawn(new EnemyFactory().createEnemy(EnemyType.SQUID, -6, new Position(posX, posY)));
-            posX += 20;
-        }*/
-
         // PLayer
         Integer initialX = 230 - Sprite.SPACECRAFT.getSize().getHeight();
-        return game.spawn(new Player(new Position(123, initialX), initialScore, game));
+        return game.spawn(new Player(new Position(123, initialX), initialScore, initialLives, game));
     }
 }

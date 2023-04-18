@@ -3,6 +3,7 @@ package cr.ac.tec.ce3104.gameobjects;
 import cr.ac.tec.ce3104.modes.PlayerShotMoving;
 import cr.ac.tec.ce3104.physics.Position;
 
+// Class for player shots
 public class PlayerShot extends Shot{
     /**
      * Create a shot when the player press space or w

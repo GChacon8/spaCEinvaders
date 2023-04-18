@@ -12,6 +12,7 @@ import static java.lang.Thread.sleep;
 
 public class Player extends GameObject{
     private Integer score;
+    private Integer lives;
     private Boolean lost = false;
     private Boolean hasKey = false;
     private Boolean hasShotAvailable = true;
@@ -23,9 +24,10 @@ public class Player extends GameObject{
      * @param initialScore initial score associated with the player
      * @param game game the player is in
      */
-    public Player(Position position, Integer initialScore, Game game) {
+    public Player(Position position, Integer initialScore, Integer initialLives, Game game) {
         super(PlayerStanding.initial(), position);
         this.score = initialScore;
+        this.lives = initialLives;
         this.game = game;
     }
 
@@ -87,7 +89,6 @@ public class Player extends GameObject{
                 this.hasShotAvailable = true;
             };
             Thread t = new Thread(reloadShot);
-
             t.start();
         }
     }
@@ -107,5 +108,21 @@ public class Player extends GameObject{
      */
     public Integer getScore() {
         return this.score;
+    }
+
+    /**
+     * Updates the amount of remaining lives the player has left
+     */
+    public void updateLives() {
+        this.lives -= 1;
+        this.refreshMode();
+    }
+
+    /**
+     * Gets the player's lives
+     * @return the player's lives
+     */
+    public Integer getLives() {
+        return this.lives;
     }
 }

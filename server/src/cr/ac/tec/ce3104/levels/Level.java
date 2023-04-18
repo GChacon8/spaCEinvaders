@@ -17,5 +17,5 @@ public interface Level {
      * @param initialScore initial score with which the level begins
      * @return Reference to the entity representing the player
      */
-    Player setup(Game game, Integer initialScore);
+    Player setup(Game game, Integer initialScore, Integer initialLives);
 }
