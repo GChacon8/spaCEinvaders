@@ -6,8 +6,10 @@ import cr.ac.tec.ce3104.physics.*;
 import cr.ac.tec.ce3104.resources.Sequence;
 
 import static cr.ac.tec.ce3104.resources.Animation.OCTOPUS_ANIMATION;
+import static cr.ac.tec.ce3104.resources.Animation.SQUID_ANIMATION;
+import static cr.ac.tec.ce3104.resources.Animation.CRAB_ANIMATION;
 
-public class OctopusMoving implements Mode{
+public class EnemyMoving implements Mode{
     private static final Integer SPEED_NUMERATOR = 7;
     private static final Integer SPEED_NUMERATOR_LIST = 2;
 
@@ -15,21 +17,23 @@ public class OctopusMoving implements Mode{
     private Boolean isList;
     private HorizontalDirection direction = HorizontalDirection.LEFT;
     private Integer speedDenominator;
+    private Sequence sequence;
 
-    public OctopusMoving(Integer speedDenominator, Boolean isList) {
+    public EnemyMoving(Integer speedDenominator, Boolean isList, Sequence sequence) {
 
         this.speedDenominator = speedDenominator;
         this.isList = isList;
+        this.sequence = sequence;
     }
 
     @Override
     public Speed getSpeed() {
         SpeedRatio ratio;
         if(isList){
-            ratio = new SpeedRatio(OctopusMoving.SPEED_NUMERATOR_LIST, this.speedDenominator);
+            ratio = new SpeedRatio(EnemyMoving.SPEED_NUMERATOR_LIST, this.speedDenominator);
         }
         else{
-            ratio = new SpeedRatio(OctopusMoving.SPEED_NUMERATOR, this.speedDenominator);
+            ratio = new SpeedRatio(EnemyMoving.SPEED_NUMERATOR, this.speedDenominator);
         }
         if (this.direction == HorizontalDirection.LEFT) {
             ratio = ratio.negate();
@@ -39,7 +43,7 @@ public class OctopusMoving implements Mode{
 
     @Override
     public Sequence getSequence() {
-        return OCTOPUS_ANIMATION;
+        return sequence;
     }
 
     @Override
@@ -59,12 +63,5 @@ public class OctopusMoving implements Mode{
         moves = 0;
         enemy.relocate(new Position(enemy.getPosition().getX(),enemy.getPosition().getY()+10));
         enemy.switchTo(this);
-    }
-
-    @Override
-    public void onShoot(Octopus octopus) {
-        Integer posX = octopus.getPosition().getX();
-        Integer posY = octopus.getPosition().getY() + 4;
-        octopus.createShot(new Position(posX, posY));
     }
 }

@@ -1,8 +1,9 @@
 package cr.ac.tec.ce3104.gameobjects;
 
 import cr.ac.tec.ce3104.Game;
-import cr.ac.tec.ce3104.modes.CrabMoving;
+import cr.ac.tec.ce3104.modes.EnemyMoving;
 import cr.ac.tec.ce3104.physics.Position;
+import cr.ac.tec.ce3104.resources.Animation;
 
 // A crab
 public class Crab extends Enemy{
@@ -17,6 +18,6 @@ public class Crab extends Enemy{
      * @param game game of the enemy
      */
     public Crab(Integer difficulty, Position position, Boolean isList, Game game) {
-        super(new CrabMoving(Enemy.getSpeedDenominator(difficulty), isList), position, CRAB_SCORE, isList, game);
+        super(new EnemyMoving(Enemy.getSpeedDenominator(difficulty), isList, Animation.CRAB_ANIMATION), position, CRAB_SCORE, isList, game);
     }
 }
