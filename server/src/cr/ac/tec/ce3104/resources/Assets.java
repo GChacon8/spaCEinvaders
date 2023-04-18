@@ -15,7 +15,7 @@ public class Assets {
     public static File[] listSpritePaths() throws IOException {
         ArrayList<File> paths = new ArrayList<>();
 
-        for (File category : new File("/home/emanuel/Desktop/spaCEinvaders/assets/sprites").listFiles()) {
+        for (File category : new File("../assets/sprites").listFiles()) {
             paths.addAll(Arrays.asList(category.listFiles()));
         }
 
