@@ -26,6 +26,13 @@ static void usage(const char *argv0)
  */
 int main(int argc, char *argv[])
 {
+    int arc = 3;
+    char *arv[arc];
+
+    arv[0] = "./client";
+    arv[1] = "localhost";
+    arv[2] = "8080";
+
 	// First the command line is parsed
 	const struct option CMDLINE_OPTIONS[] =
 	{
@@ -40,7 +47,7 @@ int main(int argc, char *argv[])
 	game.entities = hash_map_new(DEFAULT_MAP_ORDER, sizeof(struct entity));
 
 	int option;
-	while((option = getopt_long(argc, argv, CMDLINE_ALL_SHORTS, CMDLINE_OPTIONS, NULL)) != -1)
+	while((option = getopt_long(arc, arv, CMDLINE_ALL_SHORTS, CMDLINE_OPTIONS, NULL)) != -1)
 	{
 		switch(option)
 		{
@@ -52,7 +59,7 @@ int main(int argc, char *argv[])
 					"\n"
 					"    -f|--fullscreen       Enters fullscreen through Kernel Mode Setting\n"
 					"    -F|--fake-fullscreen  Displays a maximized and borderless X11 window\n",
-					argv[0]
+                    arv[0]
 				);
 
 				return 0;
@@ -70,22 +77,22 @@ int main(int argc, char *argv[])
 				break;
 
 			case '?':
-				usage(argv[0]);
+				usage(arv[0]);
 				return EXIT_FAILURE;
 		}
 	}
 
-	if(argc - optind != 2)
+	if(arc - optind != 2)
 	{
-		fprintf(stderr, "%s: missing host or port\n", argv[0]);
-		usage(argv[0]);
+		fprintf(stderr, "%s: missing host or port\n", arv[0]);
+		usage(arv[0]);
 
 		return EXIT_FAILURE;
 	}
 
 	// Start of the gameStart of the game
 	init_sdl();
-	init_net(argv[optind], argv[optind + 1]);
+	init_net(arv[optind], arv[optind + 1]);
 
 	event_loop();
 	quit(EXIT_SUCCESS);
