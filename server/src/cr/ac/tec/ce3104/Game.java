@@ -179,30 +179,43 @@ public class Game implements GameObjectObserver {
             player.updateLives();
 
             if(player.getLives() == 0){
-                target.delete();
-
-                this.score = 0;
-                this.lives = 3;
-                this.enemiesShooting = null;
-
-                this.log("You lost");
-                this.log("Begin level reset");
-                this.player = null;
-
-                // Old objects from the past instance are removed
-                for (GameObject obj : this.gameObjects.values()) {
-                    this.outputQueue.add(obj.makeDeleteCommand());
-                }
-
-                // it cleans
-                this.gameObjects.clear();
-                this.syncStats();
-                this.commit();
-
-                // start of level
-                this.player = this.level.setup(this, this.score, this.lives);
+                createReset(target);
             }
         }
+
+        if(target instanceof Player && object instanceof Enemy){
+            object.delete();
+            createReset(target);
+        }
+    }
+
+    /**
+     * Resets the game on collision.
+     * @param target
+     */
+    private void createReset(GameObject target){
+        target.delete();
+
+        this.score = 0;
+        this.lives = 3;
+        this.enemiesShooting = null;
+
+        this.log("You lost");
+        this.log("Begin level reset");
+        this.player = null;
+
+        // Old objects from the past instance are removed
+        for (GameObject obj : this.gameObjects.values()) {
+            this.outputQueue.add(obj.makeDeleteCommand());
+        }
+
+        // it cleans
+        this.gameObjects.clear();
+        this.syncStats();
+        this.commit();
+
+        // start of level
+        this.player = this.level.setup(this, this.score, this.lives);
     }
 
     /**
